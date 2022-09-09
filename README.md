@@ -18,7 +18,7 @@ formato `${NAME}-data`, por ejemplo:
 docker volume create ejemplo-data
 ```
 
-## Ejecutar en local
+### Ejecutar en local
 
 1. Levantar solo el Postgres por primera vez para crear la base de datos
 
@@ -28,8 +28,38 @@ docker compose up db
 
 2. Ejecutar desde IntelliJ la clase `Ejemplo`
 
-## Ejecutar desde Docker
+## Deploy
+
+### Probar en local desde Docker Compose
 
 ```bash
 docker compose up --build
 ```
+
+### Railway
+
+1. Ir a https://railway.app/new
+
+2. Hacer click en "Provision PostgreSQL".
+
+3. Seleccionar el container de PostgreSQL y copiar los datos de conexión de la
+pestaña "Connect". Los usaremos más adelante.
+
+4. Hacer click en "New" > "GitHub Repo" > Tu repositorio
+
+5. Seleccionar el container del repositorio y luego:
+
+   1. Ir a la pestaña "Variables" y completar las variables que comienzan con
+   "POSTGRES_" usando los datos de conexión.
+
+   2. Ir a la pestaña "Settings" > "Restart Policy" > "Never" para que no se
+   quede reiniciando a lo loco.
+
+   3. También en la pestaña "Settings", seleccionar "Start command" y completar
+      con el comando para ejecutar el jar-with-dependencies, por ejemplo:
+
+```bash
+java -jar ejemplo-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+
+¡Eso es todo!
