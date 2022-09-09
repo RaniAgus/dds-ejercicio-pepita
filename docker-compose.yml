@@ -1,8 +1,8 @@
 services:
   java:
     build: .
-    container_name: ejercicio-java
-    command: ejercicio-1.0-SNAPSHOT-jar-with-dependencies.jar
+    container_name: ${NAME:?}-java
+    command: ${NAME:?}-${VERSION:?}-jar-with-dependencies.jar
     environment:
       - POSTGRES_SERVICE=db:5432
       - POSTGRES_DB=${POSTGRES_DB:?}
@@ -13,7 +13,7 @@ services:
 
   db:
     image: postgres:9.3-alpine
-    container_name: ejercicio-db
+    container_name: ${NAME:?}-db
     ports:
       - 5432:5432
     environment:
@@ -21,8 +21,9 @@ services:
       - POSTGRES_USER=${POSTGRES_USER:?}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?}
     volumes:
-      - ejercicio-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
 
 volumes:
-  ejercicio-data:
+  postgres-data:
+    name: ${NAME:?}-data
     external: true

@@ -11,13 +11,16 @@
 1. Crear un archivo `.env` basándose en este ejemplo:
 
 ```env
+NAME=ejemplo
+VERSION=1.0-SNAPSHOT
 POSTGRES_SERVICE=localhost:5432
 POSTGRES_DB=prueba
 POSTGRES_USER=jpademo
 POSTGRES_PASSWORD=jpademo
 ```
 
-2. Crear un volumen externo en donde guardar los datos
+2. Crear un volumen externo en donde guardar los datos y nombrarlo con el 
+formato `${NAME}-data`, por ejemplo:
 
 ```bash
 docker volume create ejemplo-data
