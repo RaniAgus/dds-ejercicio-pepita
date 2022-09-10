@@ -3,7 +3,10 @@ services:
     build: .
     container_name: ${NAME:?}-java
     command: ${NAME:?}-${VERSION:?}-jar-with-dependencies.jar
+    ports:
+      - ${PORT:?}:4567
     environment:
+      - PORT=4567
       - POSTGRES_SERVICE=db:5432
       - POSTGRES_DB=${POSTGRES_DB:?}
       - POSTGRES_USER=${POSTGRES_USER:?}

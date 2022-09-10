@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.pepita;
+package ar.edu.utn.frba.dds.pepita.golondrina;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +28,10 @@ public class Golondrina {
 
   public Integer getEnergia() {
     return energia;
+  }
+
+  public void setEnergia(int energia) {
+    this.energia = energia;
   }
 
   @Override

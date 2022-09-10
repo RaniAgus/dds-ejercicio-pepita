@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.db;
 
-import ar.edu.utn.frba.dds.pepita.Golondrina;
+import ar.edu.utn.frba.dds.pepita.golondrina.Golondrina;
 import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
