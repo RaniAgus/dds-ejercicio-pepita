@@ -1,4 +1,4 @@
-# java-base-project
+# dds-ejercicio-pepita
 
 ## Dependencias
 
@@ -49,8 +49,8 @@ pestaña "Connect". Los usaremos más adelante.
 
 5. Seleccionar el container del repositorio y luego:
 
-   1. Ir a la pestaña "Variables" y completar las variables que comienzan con
-   "POSTGRES_" usando los datos de conexión.
+   1. Ir a la pestaña "Variables", completar las variables que comienzan con
+   "POSTGRES_" con los datos de conexión y utilizar `PORT=80`.
 
    2. Ir a la pestaña "Settings" > "Restart Policy" > "Never" para que no se
    quede reiniciando a lo loco.
@@ -61,5 +61,8 @@ pestaña "Connect". Los usaremos más adelante.
 ```bash
 java -jar ejemplo-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
+
+   4. Por último, ir a "Domains" y generar una URL provista por Railway para 
+      exponer la aplicación a la web.
 
 ¡Eso es todo!
