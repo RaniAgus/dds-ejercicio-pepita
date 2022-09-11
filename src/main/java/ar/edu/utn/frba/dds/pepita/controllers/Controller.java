@@ -13,7 +13,7 @@ public interface Controller extends WithGlobalEntityManager, TransactionalOps {
     try {
       return Long.parseLong(s);
     } catch (NumberFormatException e) {
-      throw new BadRequestException("invalid :id");
+      throw new BadRequestException("Invalid id");
     }
   }
 
@@ -21,7 +21,7 @@ public interface Controller extends WithGlobalEntityManager, TransactionalOps {
     try {
       return gson.fromJson(body, clazz);
     } catch (JsonSyntaxException e) {
-      throw new BadRequestException("invalid body");
+      throw new BadRequestException("Invalid body");
     }
   }
 }

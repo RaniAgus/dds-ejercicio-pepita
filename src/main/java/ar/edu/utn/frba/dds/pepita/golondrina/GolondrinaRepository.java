@@ -26,8 +26,7 @@ public class GolondrinaRepository implements WithGlobalEntityManager, EntityMana
   public Golondrina update(Long id, Golondrina golondrina) {
     Golondrina aux = findById(id);
     aux.setEnergia(golondrina.getEnergia());
-    persist(aux);
-    return aux;
+    return merge(aux);
   }
 
   public void delete(Long id) {

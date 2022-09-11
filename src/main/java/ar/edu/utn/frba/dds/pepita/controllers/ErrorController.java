@@ -8,9 +8,6 @@ import spark.Request;
 import spark.Response;
 
 public class ErrorController implements Controller {
-  public ErrorController() {
-    withTransaction(() -> {});
-  }
 
   public static void route() {
     ErrorController controller = new ErrorController();
@@ -41,7 +38,7 @@ public class ErrorController implements Controller {
     res.body(gson.toJson(new Error("500 Internal Server Error", e.getMessage())));
   }
 
-  static class Error {
+  private static class Error {
     private String error;
     private String message;
 

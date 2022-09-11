@@ -36,8 +36,8 @@ public class Golondrina {
 
   @Override
   public String toString() {
-    return "Golondrina{" +
-        "energia=" + energia +
-        '}';
+    return "Golondrina{"
+        + "energia=" + energia
+        + '}';
   }
 }

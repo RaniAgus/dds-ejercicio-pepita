@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.pepita.controllers;
 
-import static spark.Spark.after;
 import static spark.Spark.delete;
 import static spark.Spark.get;
 import static spark.Spark.path;
