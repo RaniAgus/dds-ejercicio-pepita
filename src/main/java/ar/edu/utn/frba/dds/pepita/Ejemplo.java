@@ -13,12 +13,13 @@ public class Ejemplo {
   public static void main(String[] args) {
     Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-    EntityManagerConfig.setConnectionUrl(
-        String.format("jdbc:postgresql://%s/%s",
-          dotenv.get("POSTGRES_SERVICE"),
-          dotenv.get("POSTGRES_DB")));
-    EntityManagerConfig.setConnectionUsername(dotenv.get("POSTGRES_USER"));
-    EntityManagerConfig.setConnectionPassword(dotenv.get("POSTGRES_PASSWORD"));
+    new EntityManagerConfig()
+        .setConnectionUrl(String.format("jdbc:postgresql://%s/%s",
+            dotenv.get("POSTGRES_SERVICE"),
+            dotenv.get("POSTGRES_DB")))
+        .setConnectionUsername(dotenv.get("POSTGRES_USER"))
+        .setConnectionPassword(dotenv.get("POSTGRES_PASSWORD"))
+        .applyConfiguration();
 
     port(Integer.parseInt(dotenv.get("PORT")));
     GolondrinaController.route(new GolondrinaRepository());
