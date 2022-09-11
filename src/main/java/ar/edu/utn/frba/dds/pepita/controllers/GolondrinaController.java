@@ -10,7 +10,6 @@ import static spark.Spark.put;
 import ar.edu.utn.frba.dds.pepita.golondrina.Golondrina;
 import ar.edu.utn.frba.dds.pepita.golondrina.GolondrinaRepository;
 import java.util.List;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Request;
 import spark.Response;
 
@@ -29,11 +28,6 @@ public class GolondrinaController implements Controller {
       get("/:id", controller::getGolondrinaById, gson::toJson);
       put("/:id", controller::updateGolondrina, gson::toJson);
       delete("/:id", controller::deleteGolondrina, gson::toJson);
-      after((req, res) -> {
-        if (PerThreadEntityManagers.getEntityManager().isOpen()) {
-          PerThreadEntityManagers.closeEntityManager();
-        }
-      });
     });
   }
 
