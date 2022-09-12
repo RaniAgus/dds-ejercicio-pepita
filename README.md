@@ -43,7 +43,10 @@ docker compose up --build
 2. Hacer click en "Provision PostgreSQL".
 
 3. Seleccionar el container de PostgreSQL y copiar los datos de conexión de la
-pestaña "Connect". Los usaremos más adelante.
+pestaña "Connect". Tienen el formato:
+```
+postgres://POSTGRES_USER:POSTGRES_PASSWORD@POSTGRES_SERVICE/POSTGRES_DB
+```
 
 4. Hacer click en "New" > "GitHub Repo" > Tu repositorio
 
@@ -53,7 +56,7 @@ pestaña "Connect". Los usaremos más adelante.
    "POSTGRES_" con los datos de conexión y utilizar `PORT=80`.
 
    2. Ir a la pestaña "Settings" > "Restart Policy" > "Never" para que no se
-   quede reiniciando a lo loco.
+   quede reiniciando cada vez que cambiamos algo.
 
    3. También en la pestaña "Settings", seleccionar "Start command" y completar
       con el comando para ejecutar el jar-with-dependencies, por ejemplo:
@@ -65,4 +68,31 @@ java -jar ejemplo-1.0-SNAPSHOT-jar-with-dependencies.jar
    4. Por último, ir a "Domains" y generar una URL provista por Railway para 
       exponer la aplicación a la web.
 
-¡Eso es todo!
+### Render
+
+1. Ir a https://dashboard.render.com/new/database
+
+2. Crear un nuevo PostgreSQL y extraer los datos de conexión a partir de la 
+"External Database URL". Tiene el formato:
+```
+postgres://POSTGRES_USER:POSTGRES_PASSWORD@POSTGRES_SERVICE/POSTGRES_DB
+```
+
+3. Ir a https://dashboard.render.com/select-repo?type=web y elegir este
+repositorio.
+
+4. En la siguiente sección:
+
+   1. Elegir "Environment" Docker
+
+   2. Hacer click en "Advanced"
+
+   3. Usando "Add Environment Variable", completar las variables que comienzan
+      con "POSTGRES_" con los datos de conexión y utilizar `PORT=80`.
+
+   4. Cambiar "Docker Command" por el comando para ejecutar el 
+      jar-with-dependencies, por ejemplo:
+
+```bash
+java -jar ejemplo-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
