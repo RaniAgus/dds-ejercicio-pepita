@@ -1,9 +1,25 @@
 services:
   java:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: java
     container_name: pepita-java
     ports:
       - ${PORT:?}:${PORT:?}
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_SERVICE=db:5432
+    depends_on:
+      - db
+
+  cron:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: cron
+    container_name: pepita-cron
     env_file:
       - .env
     environment:
