@@ -12,6 +12,8 @@ RUN mvn package
 
 FROM openjdk:8-jdk-alpine
 
+WORKDIR /usr/src/target
+
 COPY --from=builder /usr/src/target ./
 
-ENTRYPOINT [ "java", "-jar" ]
+ENTRYPOINT [ "java", "-jar", "application.jar" ]
