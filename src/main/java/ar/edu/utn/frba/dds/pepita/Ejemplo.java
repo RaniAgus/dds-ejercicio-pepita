@@ -16,13 +16,12 @@ public class Ejemplo implements WithGlobalEntityManager {
   public static void main(String[] args) {
     Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-    new EntityManagerConfig()
+    EntityManagerConfig.getInstance()
         .setConnectionUrl(String.format("jdbc:postgresql://%s/%s",
             dotenv.get("POSTGRES_SERVICE"),
             dotenv.get("POSTGRES_DB")))
         .setConnectionUsername(dotenv.get("POSTGRES_USER"))
-        .setConnectionPassword(dotenv.get("POSTGRES_PASSWORD"))
-        .applyConfiguration();
+        .setConnectionPassword(dotenv.get("POSTGRES_PASSWORD"));
 
     port(Integer.parseInt(dotenv.get("PORT")));
     GolondrinaController.route(new GolondrinaRepository());

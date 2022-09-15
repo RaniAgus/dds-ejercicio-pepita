@@ -18,13 +18,12 @@ public class EjemploJob implements EntityManagerOps, TransactionalOps, WithGloba
 
     Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-    new EntityManagerConfig()
+    EntityManagerConfig.getInstance()
         .setConnectionUrl(String.format("jdbc:postgresql://%s/%s",
             dotenv.get("POSTGRES_SERVICE"),
             dotenv.get("POSTGRES_DB")))
         .setConnectionUsername(dotenv.get("POSTGRES_USER"))
-        .setConnectionPassword(dotenv.get("POSTGRES_PASSWORD"))
-        .applyConfiguration();
+        .setConnectionPassword(dotenv.get("POSTGRES_PASSWORD"));
 
     new EjemploJob().run();
 
