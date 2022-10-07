@@ -1,12 +1,11 @@
 package ar.edu.utn.frba.dds.pepita.golondrina;
 
 import ar.edu.utn.frba.dds.pepita.exceptions.NotFoundException;
+import com.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 import java.util.Optional;
-import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-public class GolondrinaRepository implements WithGlobalEntityManager, EntityManagerOps {
+public class GolondrinaRepository implements WithSimplePersistenceUnit {
   public List<Golondrina> findAll() {
     return createQuery("from Golondrina", Golondrina.class)
         .getResultList();

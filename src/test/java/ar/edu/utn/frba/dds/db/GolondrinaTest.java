@@ -1,13 +1,13 @@
 package ar.edu.utn.frba.dds.db;
 
 import ar.edu.utn.frba.dds.pepita.golondrina.Golondrina;
+import com.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import com.github.flbulgarelli.jpa.extras.test.PersistenceTest;
 import org.junit.jupiter.api.Test;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GolondrinaTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
+public class GolondrinaTest implements PersistenceTest, WithSimplePersistenceUnit {
 
   @Test
   void golondrina() {

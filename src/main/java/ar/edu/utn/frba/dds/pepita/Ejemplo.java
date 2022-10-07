@@ -1,35 +1,31 @@
 package ar.edu.utn.frba.dds.pepita;
 
 import static spark.Spark.after;
+import static spark.Spark.exception;
+import static spark.Spark.path;
 import static spark.Spark.port;
 
 import ar.edu.utn.frba.dds.pepita.controllers.ErrorController;
 import ar.edu.utn.frba.dds.pepita.controllers.GolondrinaController;
+import ar.edu.utn.frba.dds.pepita.exceptions.BadRequestException;
+import ar.edu.utn.frba.dds.pepita.exceptions.NotFoundException;
 import ar.edu.utn.frba.dds.pepita.golondrina.GolondrinaRepository;
-import io.github.cdimascio.dotenv.Dotenv;
-import org.uqbarproject.jpa.java8.extras.EntityManagerConfig;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import com.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
-public class Ejemplo implements WithGlobalEntityManager {
-
+public class Ejemplo implements WithSimplePersistenceUnit {
   public static void main(String[] args) {
-    Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+    ApplicationContext ctx = new ApplicationContext();
+    ctx.configureDatabase();
 
-    EntityManagerConfig.getInstance()
-        .setConnectionUrl(String.format("jdbc:postgresql://%s/%s",
-            dotenv.get("POSTGRES_SERVICE"),
-            dotenv.get("POSTGRES_DB")))
-        .setConnectionUsername(dotenv.get("POSTGRES_USER"))
-        .setConnectionPassword(dotenv.get("POSTGRES_PASSWORD"));
+    GolondrinaRepository golondrinaRepository = new GolondrinaRepository();
+    GolondrinaController golondrinaController = new GolondrinaController(golondrinaRepository);
+    ErrorController errorController = new ErrorController();
 
-    port(Integer.parseInt(dotenv.get("PORT")));
-    GolondrinaController.route(new GolondrinaRepository());
-    ErrorController.route();
-    after((req, res) -> {
-      if (PerThreadEntityManagers.getEntityManager().isOpen()) {
-        PerThreadEntityManagers.closeEntityManager();
-      }
-    });
+    port(ctx.getPort());
+    path("/golondrinas", golondrinaController::getRoutes);
+    exception(NotFoundException.class, errorController::handleNotFound);
+    exception(BadRequestException.class, errorController::handleBadRequest);
+    exception(Exception.class, errorController::handleInternalServerError);
+    after((req, res) -> WithSimplePersistenceUnit.dispose());
   }
 }

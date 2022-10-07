@@ -29,7 +29,7 @@
     <dependency>
       <groupId>com.github.raniagus</groupId>
       <artifactId>jpa-java8-extras</artifactId>
-      <version>1.9-alpha-7</version>
+      <version>jdk8-alpha.1</version>
     </dependency>
 
     <!-- Utils -->
@@ -65,17 +65,11 @@
       <version>1.7.21</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.javassist</groupId>
-      <artifactId>javassist</artifactId>
-      <version>3.22.0-GA</version>
-    </dependency>
-
     <!-- Testing -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.7.0</version>
+      <version>5.9.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -89,7 +83,7 @@
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>2.4.0</version>
+      <version>2.7.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

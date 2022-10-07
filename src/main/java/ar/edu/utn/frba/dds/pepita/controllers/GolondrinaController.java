@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.pepita.controllers;
 
 import static spark.Spark.delete;
 import static spark.Spark.get;
-import static spark.Spark.path;
 import static spark.Spark.post;
 import static spark.Spark.put;
 
@@ -19,27 +18,22 @@ public class GolondrinaController implements Controller {
     this.golondrinaRepository = golondrinaRepository;
   }
 
-  public static void route(GolondrinaRepository golondrinaRepository) {
-    GolondrinaController controller = new GolondrinaController(golondrinaRepository);
-    path("/golondrinas", () -> {
-      get("", controller::getGolondrinas, gson::toJson);
-      post("", controller::postGolondrina, gson::toJson);
-      get("/:id", controller::getGolondrinaById, gson::toJson);
-      put("/:id", controller::updateGolondrina, gson::toJson);
-      delete("/:id", controller::deleteGolondrina, gson::toJson);
-    });
+  public void getRoutes() {
+    get("", this::getGolondrinas, gson::toJson);
+    post("", this::postGolondrina, gson::toJson);
+    get("/:id", this::getGolondrinaById, gson::toJson);
+    put("/:id", this::updateGolondrina, gson::toJson);
+    delete("/:id", this::deleteGolondrina, gson::toJson);
   }
 
   private List<Golondrina> getGolondrinas(Request req, Response res) {
-    res.type("application/json");
-    return golondrinaRepository.findAll();
+    return json(res, golondrinaRepository.findAll());
   }
 
   private Object getGolondrinaById(Request req, Response res) {
     Long id = parseId(req.params(":id"));
 
-    res.type("application/json");
-    return golondrinaRepository.findById(id);
+    return json(res, golondrinaRepository.findById(id));
   }
 
   private Golondrina postGolondrina(Request req, Response res) {
@@ -49,8 +43,7 @@ public class GolondrinaController implements Controller {
     golondrina = golondrinaRepository.create(golondrina);
     commitTransaction();
 
-    res.type("application/json");
-    return golondrina;
+    return json(res, golondrina);
   }
 
   private Golondrina updateGolondrina(Request req, Response res) {
@@ -61,8 +54,7 @@ public class GolondrinaController implements Controller {
     golondrina = golondrinaRepository.update(id, golondrina);
     commitTransaction();
 
-    res.type("application/json");
-    return golondrina;
+    return json(res, golondrina);
   }
 
   private Object deleteGolondrina(Request req, Response res) {
@@ -72,9 +64,7 @@ public class GolondrinaController implements Controller {
     golondrinaRepository.delete(id);
     commitTransaction();
 
-    res.type("application/json");
-    res.status(204);
-    return null;
+    return json(res, 204, null);
   }
 
 }

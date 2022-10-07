@@ -1,30 +1,20 @@
 package ar.edu.utn.frba.dds.pepita;
 
 import ar.edu.utn.frba.dds.pepita.golondrina.Golondrina;
-import io.github.cdimascio.dotenv.Dotenv;
-import org.uqbarproject.jpa.java8.extras.EntityManagerConfig;
-import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+import com.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class EjemploJob implements EntityManagerOps, TransactionalOps, WithGlobalEntityManager {
+public class EjemploJob implements WithSimplePersistenceUnit {
+  static ApplicationContext ctx = new ApplicationContext();
+
   public static void main(String[] args) {
     System.out.println("=============== CRON JOB STARTED ===============");
 
-    Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
-
-    EntityManagerConfig.getInstance()
-        .setConnectionUrl(String.format("jdbc:postgresql://%s/%s",
-            dotenv.get("POSTGRES_SERVICE"),
-            dotenv.get("POSTGRES_DB")))
-        .setConnectionUsername(dotenv.get("POSTGRES_USER"))
-        .setConnectionPassword(dotenv.get("POSTGRES_PASSWORD"));
-
+    ctx.configureDatabase();
     new EjemploJob().run();
 
     System.out.println("=============== CRON JOB COMPLETED ===============");
