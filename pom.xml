@@ -29,7 +29,7 @@
     <dependency>
       <groupId>com.github.raniagus</groupId>
       <artifactId>jpa-java8-extras</artifactId>
-      <version>jdk8-alpha.1</version>
+      <version>jdk8-alpha.2</version>
     </dependency>
 
     <!-- Utils -->
