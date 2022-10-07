@@ -8,15 +8,10 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class EjemploJob implements WithSimplePersistenceUnit {
-  static ApplicationContext ctx = new ApplicationContext();
-
+public class EjemploJob extends ApplicationContext implements WithSimplePersistenceUnit {
   public static void main(String[] args) {
     System.out.println("=============== CRON JOB STARTED ===============");
-
-    ctx.configureDatabase();
     new EjemploJob().run();
-
     System.out.println("=============== CRON JOB COMPLETED ===============");
     System.exit(0);
   }

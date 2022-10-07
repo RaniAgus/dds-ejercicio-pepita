@@ -12,16 +12,13 @@ import ar.edu.utn.frba.dds.pepita.exceptions.NotFoundException;
 import ar.edu.utn.frba.dds.pepita.golondrina.GolondrinaRepository;
 import com.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
-public class Ejemplo implements WithSimplePersistenceUnit {
+public class Ejemplo extends ApplicationContext implements WithSimplePersistenceUnit {
   public static void main(String[] args) {
-    ApplicationContext ctx = new ApplicationContext();
-    ctx.configureDatabase();
-
     GolondrinaRepository golondrinaRepository = new GolondrinaRepository();
     GolondrinaController golondrinaController = new GolondrinaController(golondrinaRepository);
     ErrorController errorController = new ErrorController();
 
-    port(ctx.getPort());
+    port(getPort());
     path("/golondrinas", golondrinaController::getRoutes);
     exception(NotFoundException.class, errorController::handleNotFound);
     exception(BadRequestException.class, errorController::handleBadRequest);
