@@ -12,8 +12,6 @@ services:
       - DB_URL=jdbc:postgresql://db:5432/${DB_NAME:?}
       - DB_USERNAME=${DB_USERNAME:?}
       - DB_PASSWORD=${DB_PASSWORD:?}
-      - DB_DRIVER=org.postgresql.Driver
-      - DB_DIALECT=org.hibernate.dialect.PostgresPlusDialect
     depends_on:
       - db
 

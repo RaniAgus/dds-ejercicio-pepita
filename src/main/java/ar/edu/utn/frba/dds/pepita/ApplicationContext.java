@@ -6,13 +6,11 @@ import java.util.Optional;
 
 public class ApplicationContext {
   static {
-    if (notNull("DB_URL", "DB_USERNAME", "DB_PASSWORD", "DB_DRIVER", "DB_DIALECT")) {
+    if (notNull("DB_URL", "DB_USERNAME", "DB_PASSWORD")) {
       WithSimplePersistenceUnit.configure(properties -> properties
           .set("hibernate.connection.url", System.getenv("DB_URL"))
           .set("hibernate.connection.username", System.getenv("DB_USERNAME"))
           .set("hibernate.connection.password", System.getenv("DB_PASSWORD"))
-          .set("hibernate.connection.driver_class", System.getenv("DB_DRIVER"))
-          .set("hibernate.dialect", System.getenv("DB_DIALECT"))
       );
     }
   }
